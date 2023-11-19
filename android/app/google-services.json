@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "535886676306",
+    "project_id": "earnest-cooler-403412",
+    "storage_bucket": "earnest-cooler-403412.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535886676306:android:22ccf322a923e2ee433a8b",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwX1KsSA4h5tO0EmXohFC64cNY9N_AbQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
