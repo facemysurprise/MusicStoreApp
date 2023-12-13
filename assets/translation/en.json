@@ -1,0 +1,17 @@
+{
+    "profile": "Profile Page",
+    "phone": "Phone Number",
+    "name": "Name",
+    "country": "Country",
+    "cart": "Your Cart",
+    "animation": "Animation Page",
+    "qr": "Qr Page",
+    "qr2": "Scan a QR Code",
+    "music": "Musical Instruments",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "register": "Register",
+    "fullname": "Full Name",
+    "registration": "Registration"
+}

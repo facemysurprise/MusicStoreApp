@@ -1,6 +1,6 @@
 
 
-import 'package:flutter_application_firebase/domain/repositories/instrument_domain.dart';
+import 'package:flutter_application_firebase/data/models/instrument.dart';
 
 abstract class ShopState {}
 class ShopInitial extends ShopState {}

@@ -1,29 +1,23 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter_application_firebase/domain/repositories/instrument_domain.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_application_firebase/data/models/instrument.dart';
 
 
 class InstrumentRepository implements IInstrumentRepository {
-  final FirebaseDatabase database = FirebaseDatabase.instance;
+  final InstrumentApi api;
+
+  InstrumentRepository() : api = InstrumentApi(Dio());
 
   @override
-  Stream<List<Instrument>> getInstrumentsStream() {
-    DatabaseReference ref = database.ref('instruments');
-
-    return ref.onValue.map((event) {
-      final dynamic value = event.snapshot.value;
-      final List<Instrument> instrumentsList = [];
-      if (value is List) {
-        for (var item in value) {
-          if (item is Map) {
-            final instrumentMap = Map<String, dynamic>.from(item);
-            final instrument = Instrument.fromJson(instrumentMap);
-            instrumentsList.add(instrument);
-          }
-        }
-      } else {
-        print('The retrieved Firebase value is not a List. Actual type: ${value.runtimeType}');
-      }
-      return instrumentsList;
-    });
+  Stream<List<Instrument>> getInstrumentsStream() async* {
+    try {
+      final instruments = await api.getInstruments();
+      yield instruments;
+    } catch (e) {
+      print('Error fetching instruments: $e');
+      yield [];
+    }
   }
+}
+abstract class IInstrumentRepository {
+  Stream<List<Instrument>> getInstrumentsStream();
 }

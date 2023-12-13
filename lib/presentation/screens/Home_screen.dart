@@ -1,13 +1,10 @@
-
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_firebase/presentation/screens/Animated_Screen.dart';
 import 'package:flutter_application_firebase/presentation/screens/QR_Screen.dart';
 import 'package:flutter_application_firebase/presentation/screens/Shop_screen.dart';
 import 'package:flutter_application_firebase/presentation/screens/User_Screen.dart';
-
-
-
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 
 
 class BottomNavBar extends StatefulWidget {
@@ -21,8 +18,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     InstrumentsListScreen(),
     QrScannerScreen(),
-    UserPage(),
-    Anima()
+    Anima(),
+    UserPage()
   ];
 
   @override
@@ -30,12 +27,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: ConvexAppBar(
-        backgroundColor: Colors.purple,
-        activeColor: Colors.black,
+        backgroundColor: AppColors.primaryColor,
+        activeColor: AppColors.thirdColor,
         items: [
-          TabItem(icon: Icons.home, title: 'Shop'),
-          TabItem(icon: Icons.search, title: 'QR'),
-          TabItem(icon: Icons.person, title: 'Profile'),
+          TabItem(icon: Icons.shop, title: 'Shop'),
+          TabItem(icon: Icons.qr_code, title: 'QR'),
+          TabItem(icon: Icons.animation, title: 'Profile'),
           TabItem(icon: Icons.person, title: 'Profile'),
         ],
         initialActiveIndex: _currentIndex,

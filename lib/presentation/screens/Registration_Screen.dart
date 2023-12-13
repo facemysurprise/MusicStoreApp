@@ -1,9 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_firebase/core/generated/locale_keys.g.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_bloc.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_event.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_state.dart';
 import 'package:flutter_application_firebase/presentation/screens/Home_screen.dart';
-
+import 'package:flutter_application_firebase/presentation/screens/LanguageSelector.dart';
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegistrationPage extends StatelessWidget {
@@ -31,16 +34,18 @@ class RegistrationPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Регистрация')),
+        appBar: AppBar(title: Text(LocaleKeys.register.tr()),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () => LanguageSelector.showLanguageDialog(context),
+          ),
+        ],),
         body: Container(
           width: 1000,
           height: 800,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blue, Colors.purple],
-            ),
+            gradient: AppGradients.primaryGradient
           ),
           padding: EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -48,15 +53,14 @@ class RegistrationPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                _buildTextField(_nameController, 'ФИО'),
-                _buildTextField(_emailController, 'Электронная почта'),
-                
-                _buildTextField(_phoneController, 'Номер телефона'),
-                _buildTextField(_countryController, 'Страна'),
-                _buildTextField(_passwordController, 'Пароль', isPassword: true),
+                _buildTextField(_nameController, LocaleKeys.fullname.tr()),
+                _buildTextField(_emailController, LocaleKeys.email.tr()),
+                _buildTextField(_phoneController, LocaleKeys.phone.tr()),
+                _buildTextField(_countryController, LocaleKeys.country.tr()),
+                _buildTextField(_passwordController, LocaleKeys.password.tr(), isPassword: true),
                 SizedBox(height: 24),
                 ElevatedButton(
-                  child: Text('Зарегистрироваться'),
+                  child: Text(LocaleKeys.registration.tr()),
                   onPressed: () {
                     BlocProvider.of<AuthBloc>(context).add(
                       SignUpRequested(
@@ -69,17 +73,17 @@ class RegistrationPage extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
+                    backgroundColor: AppColors.secondaryColor,
                     padding: EdgeInsets.symmetric(vertical: 12),
                   ),
                 ),
                 TextButton(
-                  child: Text('Вход'),
+                  child: Text(LocaleKeys.login.tr()),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.white,
+                    foregroundColor: AppColors.thirdColor,
                   ),
                 ),
               ],

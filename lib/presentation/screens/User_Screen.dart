@@ -1,6 +1,11 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_firebase/core/generated/locale_keys.g.dart';
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_bloc.dart';
@@ -27,14 +32,20 @@ class _UserPageState extends State<UserPage> {
   }
 
   _loadUserInfo() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _name = prefs.getString('name') ?? '';
-      _phone = prefs.getString('phone') ?? '';
-      _country = prefs.getString('country') ?? '';
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final userData = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+
+      setState(() {
+        _name = userData.data()?['name'] ?? '';
+        _phone = userData.data()?['phone'] ?? '';
+        _country = userData.data()?['country'] ?? '';
+      });
+
+      final prefs = await SharedPreferences.getInstance();
       _photoUrl = prefs.getString('photoUrl') ?? '';
       _stories = prefs.getStringList('stories') ?? [];
-    });
+    }
   }
 
   Future<void> _pickImage() async {
@@ -81,8 +92,8 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Профиль пользователя'),
-        backgroundColor: Colors.deepPurple,
+        title: Text(LocaleKeys.profile.tr()),
+        backgroundColor: AppColors.primaryColor,
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart),
@@ -132,9 +143,9 @@ class _UserPageState extends State<UserPage> {
               ),
             ),
           ),
-          _userInfoCard('ФИО', _name, Icons.person),
-          _userInfoCard('Телефон', _phone, Icons.phone),
-          _userInfoCard('Страна', _country, Icons.flag),
+          _userInfoCard(LocaleKeys.name.tr(), _name, Icons.person),
+          _userInfoCard(LocaleKeys.phone.tr(), _phone, Icons.phone),
+          _userInfoCard(LocaleKeys.country.tr(), _country, Icons.flag),
         ],
       ),
     );
@@ -144,7 +155,7 @@ class _UserPageState extends State<UserPage> {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
-        leading: Icon(icon, color: Colors.deepPurple),
+        leading: Icon(icon, color: AppColors.secondaryColor),
         title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(value),
       ),

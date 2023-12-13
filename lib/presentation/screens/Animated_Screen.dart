@@ -1,17 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_firebase/core/generated/locale_keys.g.dart';
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 
 
 class Anima extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Animation Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        hintColor: Colors.purple,
+        hintColor: AppColors.primaryColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         appBarTheme: AppBarTheme(
-          color: Colors.purple, 
+          color: AppColors.primaryColor, 
           toolbarTextStyle: TextTheme(
             titleLarge: TextStyle(color: Colors.white, fontSize: 20),
           ).bodyMedium, 
@@ -20,8 +22,8 @@ class Anima extends StatelessWidget {
           ).titleLarge,
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.purple,
-          foregroundColor: Colors.white,
+          backgroundColor: AppColors.primaryColor,
+          foregroundColor: AppColors.thirdColor,
         ),
       ),
       home: AnimationPage(),
@@ -53,7 +55,7 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    _colorAnimation = ColorTween(begin: Colors.blue, end: Colors.purple).animate(_controller);
+    _colorAnimation = ColorTween(begin: Colors.blue, end: AppColors.primaryColor).animate(_controller);
 
     _rotationAnimation = Tween<double>(begin: 0, end: 2 * 3.14159).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
@@ -76,7 +78,7 @@ class _AnimationPageState extends State<AnimationPage> with SingleTickerProvider
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Complex Animation'),
+        title: Text(LocaleKeys.animation.tr()),
       ),
       body: Center(
         child: AnimatedBuilder(

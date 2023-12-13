@@ -5,7 +5,9 @@ import 'qrscreen_state.dart';
 class QrScreenBloc extends Bloc<QrScreenEvent, QrScreenState> {
   QrScreenBloc() : super(QrInitial()) {
     on<QrScanEvent>((event, emit) {
-      emit(QrScanSuccess(event.qrCode));
-    });
+  print("Scanned QR Code: ${event.qrCode}");
+  emit(QrScanSuccess(event.qrCode));
+});
   }
-}
+  
+} 

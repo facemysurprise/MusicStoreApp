@@ -1,7 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_firebase/core/generated/locale_keys.g.dart';
 import 'package:flutter_application_firebase/presentation/bloc/qrbloc/qrscreen_bloc.dart';
 import 'package:flutter_application_firebase/presentation/bloc/qrbloc/qrscreen_event.dart';
 import 'package:flutter_application_firebase/presentation/bloc/qrbloc/qrscreen_state.dart';
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
@@ -24,8 +27,8 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   Widget build(BuildContext context) {
     
     ThemeData themeData = Theme.of(context).copyWith(
-      primaryColor: Colors.blue,
-      hintColor: Colors.blueAccent,
+      primaryColor: AppColors.primaryColor,
+      hintColor: AppColors.primaryColor
     );
 
     return Theme(
@@ -34,8 +37,8 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
         create: (context) => QrScreenBloc(),
         child: Scaffold(
           appBar: AppBar(
-            title: Text('QR Scanner'),
-            backgroundColor: Colors.blue,
+            title: Text(LocaleKeys.qr.tr()),
+            backgroundColor: AppColors.primaryColor, 
           ),
           body: Column(
             children: <Widget>[
@@ -45,7 +48,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
                   overlay: QrScannerOverlayShape(
-                    borderColor: Colors.blue,
+                    borderColor: AppColors.primaryColor,
                     borderRadius: 10,
                     borderLength: 30,
                     borderWidth: 10,
@@ -61,12 +64,12 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
                       if (state is QrScanSuccess) {
                         return Text(
                           'Data: ${state.qrData}',
-                          style: TextStyle(fontSize: 20, color: Colors.blue),
+                          style: TextStyle(fontSize: 20, color: Colors.purple), 
                         );
                       }
                       return Text(
-                        'Scan a QR code',
-                        style: TextStyle(color: Colors.blueGrey),
+                        LocaleKeys.qr2.tr(),
+                        style: TextStyle(color: Colors.purple), 
                       );
                     },
                   ),
@@ -83,8 +86,8 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       if (scanData.code != null) {
-        controller.pauseCamera();
         BlocProvider.of<QrScreenBloc>(context).add(QrScanEvent(scanData.code!));
+        controller.pauseCamera();
       }
     });
   }

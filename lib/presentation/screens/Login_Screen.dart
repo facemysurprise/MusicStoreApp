@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_firebase/core/generated/locale_keys.g.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_bloc.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_event.dart';
 import 'package:flutter_application_firebase/presentation/bloc/bloc/auth_state.dart';
 import 'package:flutter_application_firebase/presentation/screens/Home_screen.dart';
+import 'package:flutter_application_firebase/presentation/screens/LanguageSelector.dart';
 import 'package:flutter_application_firebase/presentation/screens/Registration_Screen.dart';
-
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatelessWidget {
@@ -29,14 +32,16 @@ class LoginPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Вход')),
+        appBar: AppBar(title: Text(LocaleKeys.login.tr()),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.language),
+            onPressed: () => LanguageSelector.showLanguageDialog(context),
+          ),
+        ],),
         body: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [Colors.blue, Colors.purple],
-            ),
+            gradient: AppGradients.primaryGradient
           ),
           padding: EdgeInsets.all(16.0),
           child: Center(
@@ -48,7 +53,7 @@ class LoginPage extends StatelessWidget {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: 'Электронная почта',
+                      labelText: LocaleKeys.email.tr(),
                       border: OutlineInputBorder(),
                       filled: true,
                       fillColor: Colors.white.withOpacity(0.9),
@@ -58,7 +63,7 @@ class LoginPage extends StatelessWidget {
                   TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
-                      labelText: 'Пароль',
+                      labelText: LocaleKeys.password.tr(),
                       border: OutlineInputBorder(),
                       filled: true,
                       fillColor: Colors.white.withOpacity(0.9),
@@ -67,7 +72,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   SizedBox(height: 24),
                   ElevatedButton(
-                    child: Text('Вход'),
+                    child: Text(LocaleKeys.login.tr()),
                     onPressed: () {
                       BlocProvider.of<AuthBloc>(context).add(
                         SignInRequested(
@@ -77,12 +82,12 @@ class LoginPage extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
+                      backgroundColor: AppColors.secondaryColor,
                       padding: EdgeInsets.symmetric(vertical: 12),
                     ),
                   ),
                   TextButton(
-                    child: Text('Регистрация'),
+                    child: Text(LocaleKeys.register.tr()),
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -90,7 +95,7 @@ class LoginPage extends StatelessWidget {
                       );
                     },
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
+                      foregroundColor: AppColors.thirdColor,
                     ),
                   ),
                 ],

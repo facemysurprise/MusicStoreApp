@@ -1,5 +1,5 @@
 
-import 'package:flutter_application_firebase/domain/repositories/instrument_domain.dart';
+import 'package:flutter_application_firebase/data/models/instrument.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_firebase/data/repositories/shop_repository.dart';
 import 'package:flutter_application_firebase/presentation/bloc/shop_bloc/shop_event.dart';

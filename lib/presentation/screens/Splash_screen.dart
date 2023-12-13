@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_firebase/presentation/screens/Login_Screen.dart';
+import 'package:flutter_application_firebase/presentation/themes/theme.dart';
 import 'package:lottie/lottie.dart';
-
-
-
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -28,11 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [Colors.blue, Colors.purple], 
-          ),
+          gradient: AppGradients.primaryGradient
         ),
         child: Center(
           child: Column(
@@ -40,15 +34,6 @@ class _SplashScreenState extends State<SplashScreen> {
             children: <Widget>[
               Lottie.asset('assets/lottie_animation/music1.json', height: 400, width: 400), 
               SizedBox(height: 30),
-              Text(
-                'MUSIC SHOP',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              
             ],
           ),
         ),
@@ -57,16 +42,3 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home Screen'),
-      ),
-      body: Center(
-        child: Text('Welcome to the Home Screen!'),
-      ),
-    );
-  }
-}
